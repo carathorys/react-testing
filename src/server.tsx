@@ -15,6 +15,12 @@ import { configureStore } from './app/redux/store';
 import routes from './app/routes';
 
 import { Html } from './app/containers';
+import { MuiThemeProvider } from 'material-ui';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MaterialUITheme } from './vendor/main';
+import * as injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const manifest = require('../build/manifest.json');
 
 const express = require('express');
@@ -56,6 +62,13 @@ app.get('*', (req, res) => {
   const store = configureStore(memoryHistory);
   const history = syncHistoryWithStore(memoryHistory, store);
 
+  const muiTheme = getMuiTheme(MaterialUITheme, {
+    avatar: {
+      borderColor: null,
+    },
+    userAgent: req.headers['user-agent'],
+  });
+
   match({ history, routes, location },
     (error, redirectLocation, renderProps) => {
       if (error) {
@@ -67,9 +80,11 @@ app.get('*', (req, res) => {
 
         loadOnServer(asyncRenderData).then(() => {
           const markup = ReactDOMServer.renderToString(
-            <Provider store={store} key="provider">
-              <ReduxAsyncConnect {...renderProps} />
-            </Provider>,
+            <MuiThemeProvider muiTheme={muiTheme}>
+              <Provider store={store} key="provider">
+                <ReduxAsyncConnect {...renderProps} />
+              </Provider>
+            </MuiThemeProvider>,
           );
           res.status(200).send(renderHTML(markup, store));
         });

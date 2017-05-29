@@ -2,6 +2,7 @@ import * as React from 'react';
 import { increment, decrement } from 'modules/counter/';
 import { ICounter } from 'models/counter';
 import { ICounterAction } from 'models/counter';
+import { RaisedButton } from 'material-ui';
 const { connect } = require('react-redux');
 const style = require('./style.css');
 
@@ -25,18 +26,18 @@ class Counter extends React.Component<IProps, void> {
 
     return (
       <div className={style.Counter}>
-        <h4>Counter Example</h4>
-        <button
+        <h4>Számláló példa</h4>
+        <RaisedButton
           name="incBtn"
-          onClick={increment}>
-          INCREMENT
-        </button>
-        <button
+          onClick={increment}
+          primary={true}
+          label="INCREMENT" />
+        <RaisedButton
           name="decBtn"
           onClick={decrement}
-          disabled={counter.count <= 0}>
-          DECREMENT
-        </button>
+          secondary={true}
+          disabled={counter.count <= 0}
+          label="DECREMENT" />
         <p>{counter.count}</p>
       </div>
     );
