@@ -1,9 +1,14 @@
-html, body {
-  padding: 0;
-  margin: 0;
+html,
+body {
+    padding: 0;
+    margin: 0;
 }
-.AppContainer {
-  padding: 0;
-  margin: 0;
-  text-align: center;
+
+.toggleDock {
+    min-height:100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

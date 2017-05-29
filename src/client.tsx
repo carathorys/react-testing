@@ -30,15 +30,14 @@ const muiTheme = getMuiTheme(MaterialUITheme, {
   },
 });
 ReactDOM.render(
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <Provider store={store} key="provider">
+  <Provider store={store} key="provider">
+    <MuiThemeProvider muiTheme={muiTheme}>
       <Router
         history={history}
-        render={connectedCmp}
-      >
+        render={connectedCmp}>
         {routes}
       </Router>
-    </Provider>
-  </MuiThemeProvider>,
+    </MuiThemeProvider>
+  </Provider>,
   document.getElementById('app'),
 );
